@@ -1,0 +1,88 @@
+
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8">
+  <title>你是五行中哪种特质？</title>
+  <style>
+    body { font-family: Arial, sans-serif; padding: 20px; max-width: 800px; margin: auto; }
+    h2 { color: #333; }
+    .question { margin-bottom: 20px; }
+    .result { font-weight: bold; font-size: 18px; color: green; margin-top: 20px; }
+    button { padding: 10px 20px; font-size: 16px; }
+  </style>
+</head>
+<body>
+  <h2>你是五行中哪种特质？</h2>
+  <form id="quizForm">
+    <div class="question">
+      <p>1. 你的性格更接近下面哪种描述？</p>
+      <label><input type="radio" name="q1" value="A"> A. 性格直爽，容易急躁或生气</label><br>
+      <label><input type="radio" name="q1" value="B"> B. 性格热情，容易兴奋或焦虑</label><br>
+      <label><input type="radio" name="q1" value="C"> C. 性格稳重，容易思虑过多</label><br>
+      <label><input type="radio" name="q1" value="D"> D. 性格果断，容易悲伤或忧郁</label><br>
+      <label><input type="radio" name="q1" value="E"> E. 性格冷静，容易恐惧或不安</label>
+    </div>
+    <div class="question">
+      <p>2. 哪个季节你身体最容易出状况？</p>
+      <label><input type="radio" name="q2" value="A"> A. 春季容易过敏或头痛</label><br>
+      <label><input type="radio" name="q2" value="B"> B. 夏季容易出汗或失眠</label><br>
+      <label><input type="radio" name="q2" value="C"> C. 长夏（梅雨季）容易消化不良</label><br>
+      <label><input type="radio" name="q2" value="D"> D. 秋季容易咳嗽或皮肤干燥</label><br>
+      <label><input type="radio" name="q2" value="E"> E. 冬季容易腰酸或水肿</label>
+    </div>
+    <div class="question">
+      <p>3. 你偏爱以下哪种食物味道？</p>
+      <label><input type="radio" name="q3" value="A"> A. 酸味（柠檬、醋）</label><br>
+      <label><input type="radio" name="q3" value="B"> B. 苦味（苦瓜、咖啡）</label><br>
+      <label><input type="radio" name="q3" value="C"> C. 甜味（蜂蜜、红薯）</label><br>
+      <label><input type="radio" name="q3" value="D"> D. 辛辣（姜、蒜）</label><br>
+      <label><input type="radio" name="q3" value="E"> E. 咸味（海带、酱油）</label>
+    </div>
+    <div class="question">
+      <p>4. 你经常有以下哪种身体表现？</p>
+      <label><input type="radio" name="q4" value="A"> A. 手脚容易发凉，但头部易发热</label><br>
+      <label><input type="radio" name="q4" value="B"> B. 面色偏红，容易长痘痘</label><br>
+      <label><input type="radio" name="q4" value="C"> C. 肌肉松软，容易疲劳</label><br>
+      <label><input type="radio" name="q4" value="D"> D. 皮肤白皙，容易感冒</label><br>
+      <label><input type="radio" name="q4" value="E"> E. 手脚冰凉，容易疲倦</label>
+    </div>
+    <button type="button" onclick="calculateResult()">提交</button>
+  </form>
+  <div class="result" id="result"></div>
+  <script>
+    function calculateResult() {
+      const answers = [
+        document.querySelector('input[name="q1"]:checked'),
+        document.querySelector('input[name="q2"]:checked'),
+        document.querySelector('input[name="q3"]:checked'),
+        document.querySelector('input[name="q4"]:checked')
+      ];
+      if (answers.includes(null)) {
+        alert("请完成所有题目再提交！");
+        return;
+      }
+      let count = { A: 0, B: 0, C: 0, D: 0, E: 0 };
+      answers.forEach(answer => { count[answer.value]++; });
+
+      let max = 0, resultKey = "";
+      for (const key in count) {
+        if (count[key] > max) {
+          max = count[key];
+          resultKey = key;
+        }
+      }
+
+      let resultText = {
+        A: "你是木行特质。",
+        B: "你是火行特质。",
+        C: "你是土行特质。",
+        D: "你是金行特质。",
+        E: "你是水行特质。"
+      };
+
+      document.getElementById("result").textContent = resultText[resultKey];
+    }
+  </script>
+</body>
+</html>
